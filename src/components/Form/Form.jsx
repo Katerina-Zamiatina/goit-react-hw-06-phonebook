@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/actions';
 import styles from './Form.module.css';
@@ -18,13 +17,8 @@ const Form = ({ onSubmit, contacts }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    const newContact = {
-      id: uuidv4(),
-      name: contact.name,
-      number: contact.number,
-    };
     if (isUnique(contact.name)) {
-      onSubmit(newContact);
+      onSubmit(contact);
     }
     resetForm();
   };

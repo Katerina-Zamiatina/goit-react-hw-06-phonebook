@@ -2,25 +2,23 @@ import { connect } from 'react-redux';
 import ContactItem from './ContactItem';
 import { deleteContact } from '../../redux/contacts/actions';
 
-const Contacts = ({ contacts, onDeleteContact }) => {
-  return (
-    <ul>
-      {contacts.map(({ id, name, number }) => (
-        <ContactItem
-          key={id}
-          name={name}
-          number={number}
-          onDelete={() => onDeleteContact(id)}
-        />
-      ))}
-    </ul>
-  );
-};
+const Contacts = ({ contacts, onDeleteContact }) => (
+  <ul>
+    {contacts.map(({ id, name, number }) => (
+      <ContactItem
+        key={id}
+        name={name}
+        number={number}
+        onDelete={() => onDeleteContact(id)}
+      />
+    ))}
+  </ul>
+);
 
 const getVisibleContacts = (allContacts, filter) => {
   const normalizedFilter = filter.toLowerCase();
-  return allContacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter),
+  return allContacts.filter(({ name }) =>
+    name.toLowerCase().includes(normalizedFilter),
   );
 };
 
