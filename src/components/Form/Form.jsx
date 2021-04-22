@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/actions';
 import styles from './Form.module.css';
 
-const Form = ({ onSubmit, contacts }) => {
+const Form = ({ onSubmit }) => {
   const [contact, setContact] = useState({
     name: '',
     number: '',
@@ -17,16 +17,8 @@ const Form = ({ onSubmit, contacts }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    if (isUnique(contact.name)) {
-      onSubmit(contact);
-    }
+    onSubmit(contact);
     resetForm();
-  };
-
-  const isUnique = name => {
-    const existingContact = !!contacts.find(contact => contact.name === name);
-    existingContact && alert(`${name} is already in contacts`);
-    return !existingContact;
   };
 
   const resetForm = () => {
@@ -74,11 +66,8 @@ const Form = ({ onSubmit, contacts }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: state.contacts.items,
-});
 const mapDispatchToProps = dispatch => ({
   onSubmit: contact => dispatch(addContact(contact)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);
